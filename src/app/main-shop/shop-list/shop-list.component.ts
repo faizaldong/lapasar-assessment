@@ -29,9 +29,6 @@ export class ShopListComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.getListProducts()
-        this._itemsService.getimages().subscribe(file => {
-            // console.log(file)
-        })
     }
 
     ngOnDestroy() {
@@ -97,8 +94,6 @@ export class ShopListComponent implements OnInit, OnDestroy {
     addToCart(product: IProducts, index: number) {
         if (this.productCart.length) {
             const storedIds = this.productCart.map(product => product._id)
-            // console.log('storedIds ', storedIds)
-            // console.log('selected item ', product._id)
             if (storedIds.includes(product._id)) {
                 this.productCart.map((productC: IProducts) => {
                     if (productC._id === product._id) {
@@ -111,12 +106,9 @@ export class ShopListComponent implements OnInit, OnDestroy {
             }
 
         } else {
-            // console.log('new productCart', product)
             product.cartTotal = 1
             this.productCart.push(product)
         }
-
-        // console.log('total in cart', this.productCart)
 
         localStorage.setItem('carts', JSON.stringify(this.productCart))
     }
