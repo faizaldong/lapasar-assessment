@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
+import { Router} from '@angular/router'
 import { ItemsService } from '@app/main-shop'
 import { Subject, interval } from 'rxjs';
 import { tap, takeUntil } from 'rxjs/operators'
@@ -22,13 +23,12 @@ export class ShopListComponent implements OnInit, OnDestroy {
     destroy$: Subject<boolean> = new Subject<boolean>();
 
     constructor(
+        private router: Router,
         private _itemsService: ItemsService
     ) {}
 
     ngOnInit() {
         this.getListProducts()
-        this.getTotalCarts()
-        // localStorage.removeItem('carts')
     }
 
     ngOnDestroy() {
@@ -40,28 +40,19 @@ export class ShopListComponent implements OnInit, OnDestroy {
         this.isGrid = !this.isGrid
     }
 
-    getTotalCarts() {
-        const carts = localStorage.getItem('carts')
-        if (carts)
-            this.productCart = JSON.parse(carts)
-    }
-
     getListProducts() {
         this._itemsService.getProducts().pipe(
             takeUntil(this.destroy$),
             tap((data: IProducts[]) => {
-                console.log('on first load product in Cart ',this.productCart)
                 this.listProducts = data.map(product => {
                     return {
                         ...product,
-                        // isAddCart: (this.productCart.length && this.productCart.map((productC: IProducts) => productC._id == product._id)) ? true : false
+                        cartTotal: 0
                     }
                 })
                 const [a, b, c, d, e, f, g, h, i, j, k, ...rest] = this.listProducts
                 this.listTempProducts = [a, b, c, d, e, f, g, h, i, j, k]
                 this.listProducts = [a, b, c, d, e, f, g, h, i, j, k]
-                console.log('on first load ',this.listProducts)
-
             })
         ).subscribe()
     }
@@ -95,10 +86,50 @@ export class ShopListComponent implements OnInit, OnDestroy {
     }
 
     addToCart(product: IProducts, index: number) {
-        this.listProducts[index].isAddCart = true
-        this.productCart.push(product)
+        if (this.productCart.length) {
+            const storedIds = this.productCart.map(product => product._id)
+            // console.log('storedIds ', storedIds)
+            // console.log('selected item ', product._id)
+            if (storedIds.includes(product._id)) {
+                this.productCart.map((productC: IProducts) => {
+                    if (productC._id === product._id) {
+                        productC.cartTotal += 1
+                    }
+                })
+            } else {
+                product.cartTotal = 1
+                this.productCart.push(product)
+            }
+
+        } else {
+            // console.log('new productCart', product)
+            product.cartTotal = 1
+            this.productCart.push(product)
+        }
+
+        // console.log('total in cart', this.productCart)
+
         localStorage.setItem('carts', JSON.stringify(this.productCart))
-        console.log('after add to cart ',this.listProducts)
+    }
+
+    removeStorage() {
+        localStorage.removeItem('carts')
+    }
+
+    get getTotalCarts(): any[] {
+        let localCarts = localStorage.getItem('carts')
+        if (localCarts && JSON.parse(localCarts).length) {
+            this.productCart = JSON.parse(localCarts)
+            return this.productCart
+        } else {
+            return []
+        }
+    }
+
+    viewCart() {
+        if (this.productCart.length > 0 ) {
+            this.router.navigate(['/cart'])
+        }
     }
 
 }

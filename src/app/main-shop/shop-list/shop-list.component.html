@@ -1,7 +1,7 @@
 <div class="cart-wrapper">
     <span>
-        <img src="https://static.vecteezy.com/system/resources/previews/001/504/962/non_2x/shopping-cart-icon-free-vector.jpg" width="35" alt="cart" routerLink="/cart">
-        <span>{{productCart.length}}</span>
+        <img src="https://static.vecteezy.com/system/resources/previews/001/504/962/non_2x/shopping-cart-icon-free-vector.jpg" width="35" alt="cart" (click)="viewCart()">
+        <span>{{getTotalCarts.length}}</span>
     </span>
 </div>
 
@@ -9,6 +9,7 @@
     <input (keyup)="searchProductName($event)" placeholder="Full Product Name">
     <button (click)="toggleList()">Change View List</button>
     <button (click)="sortProduct()">sort</button>
+    <button (click)="removeStorage()">clear local</button>
 </div>
 
 <div class="main-shop" [ngClass]="{'grid-view' : isGrid}">
