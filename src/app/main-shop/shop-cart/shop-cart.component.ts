@@ -21,9 +21,9 @@ export class ShopCartComponent implements OnInit {
     }
 
     getAllProductCart() {
-        const carts = localStorage.getItem('carts')
         if (this.getCartsStored.length) {
             this.listCarts = this.getCartsStored
+            console.log(this.listCarts)
         } else {
             this.router.navigate(['/list'])
         }
@@ -41,15 +41,35 @@ export class ShopCartComponent implements OnInit {
         if (event === 'dec') {
             if (item.cartTotal == 1)
                 return
-            item.cartTotal -= 1
+            this.listCarts.map((cart: IProducts) => {
+                if (cart._id === item._id) {
+                    cart.cartTotal -= 1
+                    cart.totalAmount = +this.productPrice(cart)
+                }
+            })
         } else {
-            item.cartTotal += 1
+            this.listCarts.map((cart: IProducts) => {
+                if (cart._id === item._id) {
+                    cart.cartTotal += 1
+                    cart.totalAmount = +this.productPrice(cart)
+                }
+            })
         }
+
+        console.log(this.listCarts)
+        localStorage.setItem('carts', JSON.stringify(this.listCarts))
     }
 
     removeItem(product: IProducts, index: number) {
         this.listCarts.splice(index, 1)
         localStorage.setItem('carts', JSON.stringify(this.listCarts))
+    }
+
+    get totalAmount() {
+        let total = 0
+        if (this.listCarts.length)
+            return (total += this.listCarts.reduce((sum, current) => sum + current.totalAmount, 0.0)).toFixed(2)
+        return 0
     }
 
     get getCartsStored(): IProducts[] {
