@@ -6,6 +6,7 @@ import { tap, takeUntil } from 'rxjs/operators'
 import { IProducts } from '../interfaces/products.interface'
 
 import {filter, orderBy} from 'lodash'
+import { environment } from '@src/environments/environment';
 
 @Component({
     selector: 'app-shop-list',
@@ -19,6 +20,7 @@ export class ShopListComponent implements OnInit, OnDestroy {
     listProducts: IProducts[] = []
     listTempProducts: IProducts[] = []
     productCart: IProducts[] = []
+    apiurl = `${environment.domain}${environment.products}`
 
     destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -125,6 +127,10 @@ export class ShopListComponent implements OnInit, OnDestroy {
         if (this.productCart.length > 0 ) {
             this.router.navigate(['/cart'])
         }
+    }
+
+    fileImage(item: IProducts) {
+        return `${this.apiurl}/${item._id}/${item.images[0]}`
     }
 
     get getTotalCarts(): any[] {
