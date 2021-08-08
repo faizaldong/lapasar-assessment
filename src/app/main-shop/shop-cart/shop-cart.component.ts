@@ -24,7 +24,6 @@ export class ShopCartComponent implements OnInit {
         const carts = localStorage.getItem('carts')
         if (this.getCartsStored.length) {
             this.listCarts = this.getCartsStored
-            console.log('after uniq', this.listCarts)
         } else {
             this.router.navigate(['/list'])
         }
@@ -40,12 +39,17 @@ export class ShopCartComponent implements OnInit {
 
     setItemTotal(item: IProducts, event: string) {
         if (event === 'dec') {
-            if (item.cartTotal == 0)
+            if (item.cartTotal == 1)
                 return
             item.cartTotal -= 1
         } else {
             item.cartTotal += 1
         }
+    }
+
+    removeItem(product: IProducts, index: number) {
+        this.listCarts.splice(index, 1)
+        localStorage.setItem('carts', JSON.stringify(this.listCarts))
     }
 
     get getCartsStored(): IProducts[] {

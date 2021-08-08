@@ -10,6 +10,9 @@
                 <span class="cart-item__button" (click)="setItemTotal(item, 'dec')">-</span>
                 <span class="cart-item__tot"> {{item.cartTotal}} </span>
                 <span class="cart-item__button" (click)="setItemTotal(item, 'inc')">+</span>
+                <span class="cart-item__buttonremove" (click)="removeItem(item, i)">
+                    <img src="https://icons-for-free.com/iconfiles/png/512/bin+dustbin+garbage+recycling+rubbish+waste+icon-1320162741538179807.png" width="15" alt="dustbin">
+                </span>
             </div>
         </div>
     </div>
