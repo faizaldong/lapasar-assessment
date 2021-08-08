@@ -11,7 +11,7 @@ import { Observable, of } from 'rxjs';
 export class ItemsService {
   apiUrl: string
   constructor(private _http: HttpClient) {
-    this.apiUrl = `${environment.domain}${environment.products}`
+    this.apiUrl = 'http://149.28.132.97:7000/api/products'
   }
 
   get headers() {
