@@ -53,11 +53,11 @@ export class ShopListComponent implements OnInit, OnDestroy {
                         totalAmount: 0
                     }
                 })
-                const [a, b, c, d, e, f, ...rest] = listProducts
+                const [a, b, c, d, e, f, g, h, i, j, k, ...rest] = listProducts
 
                 // get few data from array
-                this.listTempProducts = [a, b, c, d, e, f]
-                this.listProducts = [a, b, c, d, e, f]
+                this.listTempProducts = [a, b, c, d, e, f, g, h, i, j, k]
+                this.listProducts = [a, b, c, d, e, f, g, h, i, j, k]
             })
         ).subscribe()
     }
