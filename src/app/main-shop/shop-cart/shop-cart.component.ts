@@ -21,7 +21,6 @@ export class ShopCartComponent implements OnInit {
     }
 
     getAllProductCart() {
-        const carts = localStorage.getItem('carts')
         if (this.getCartsStored.length) {
             this.listCarts = this.getCartsStored
         } else {
@@ -41,10 +40,14 @@ export class ShopCartComponent implements OnInit {
         if (event === 'dec') {
             if (item.cartTotal == 1)
                 return
-            item.cartTotal -= 1
+            this.listCarts.map((cart: IProducts) => (cart._id === item._id) ? cart.cartTotal -= 1 : null)
+            // item.cartTotal -= 1
         } else {
-            item.cartTotal += 1
+            this.listCarts.map((cart: IProducts) => (cart._id === item._id) ? cart.cartTotal += 1 : null)
+            // item.cartTotal += 1
         }
+
+        localStorage.setItem('carts', JSON.stringify(this.listCarts))
     }
 
     removeItem(product: IProducts, index: number) {
