@@ -5,7 +5,7 @@ import { Subject, interval } from 'rxjs';
 import { tap, takeUntil } from 'rxjs/operators'
 import { IProducts } from '../interfaces/products.interface'
 
-import * as _ from 'lodash'
+import {filter, orderBy} from 'lodash'
 
 @Component({
     selector: 'app-shop-list',
@@ -29,6 +29,9 @@ export class ShopListComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.getListProducts()
+        this._itemsService.getimages().subscribe(file => {
+            // console.log(file)
+        })
     }
 
     ngOnDestroy() {
@@ -44,21 +47,27 @@ export class ShopListComponent implements OnInit, OnDestroy {
         this._itemsService.getProducts().pipe(
             takeUntil(this.destroy$),
             tap((data: IProducts[]) => {
-                this.listProducts = data.map(product => {
+                const listProducts = data.map(product => {
                     return {
                         ...product,
                         cartTotal: 0
                     }
                 })
-                const [a, b, c, d, e, f, g, h, i, j, k, ...rest] = this.listProducts
-                this.listTempProducts = [a, b, c, d, e, f, g, h, i, j, k]
-                this.listProducts = [a, b, c, d, e, f, g, h, i, j, k]
+                const [a, b, c, d, e, f, ...rest] = listProducts
+                const files = [a, b, c, d, e, f].map((product: IProducts) => {return {'prodId': product._id, 'filename': product.images[0]}})
+                // files.map((file: {prodId: string, filename: string}) => {
+                //     this._itemsService.getProducts(file.prodId, file.filename).subscribe(data => {
+                //         console.log('after get ',data)
+                //     })
+                // })
+
+                this.listTempProducts = [a, b, c, d, e, f]
+                this.listProducts = [a, b, c, d, e, f]
             })
         ).subscribe()
     }
 
     getImage(product: IProducts) {
-        return
         this._itemsService.getProducts(product._id, product.images[0]).pipe(
             tap((file: any) => console.log(file))
         ).subscribe()
@@ -72,7 +81,7 @@ export class ShopListComponent implements OnInit, OnDestroy {
         const name =search.target.value
         const prodList = this.listTempProducts
         if (Boolean(name)) {
-            this.listProducts = _.filter(prodList, {name})
+            this.listProducts = filter(prodList, {name})
         } else {
             this.listProducts = this.listTempProducts
         }
@@ -82,7 +91,7 @@ export class ShopListComponent implements OnInit, OnDestroy {
     sortProduct() {
         this.isnotAsc = !this.isnotAsc
         const prodList = this.listTempProducts
-        this.listProducts = this.isnotAsc ? _.orderBy(prodList, ['name'], ['desc']) : _.orderBy(prodList, ['name'], ['asc'])
+        this.listProducts = this.isnotAsc ? orderBy(prodList, ['name'], ['desc']) : orderBy(prodList, ['name'], ['asc'])
     }
 
     addToCart(product: IProducts, index: number) {
