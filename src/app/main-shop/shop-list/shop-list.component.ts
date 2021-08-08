@@ -52,14 +52,6 @@ export class ShopListComponent implements OnInit, OnDestroy {
                     }
                 })
                 const [a, b, c, d, e, f, ...rest] = listProducts
-                const files = [a, b, c, d, e, f].map((product: IProducts) => {return {'prodId': product._id, 'filename': product.images[0]}})
-
-                // unable to call image
-                // files.map((file: {prodId: string, filename: string}) => {
-                //     this._itemsService.getProducts(file.prodId, file.filename).subscribe(data => {
-                //         console.log('after get ',data)
-                //     })
-                // })
 
                 // get few data from array
                 this.listTempProducts = [a, b, c, d, e, f]
@@ -93,7 +85,6 @@ export class ShopListComponent implements OnInit, OnDestroy {
 
     convertCentToRM(price: number) {
         return (price / 100).toFixed(2)
-        // return (price * 0.004163).toFixed(2);
     }
 
     productPrice(item: IProducts) {

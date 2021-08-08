@@ -23,7 +23,6 @@ export class ShopCartComponent implements OnInit {
     getAllProductCart() {
         if (this.getCartsStored.length) {
             this.listCarts = this.getCartsStored
-            console.log(this.listCarts)
         } else {
             this.router.navigate(['/list'])
         }
@@ -56,7 +55,6 @@ export class ShopCartComponent implements OnInit {
             })
         }
 
-        console.log(this.listCarts)
         localStorage.setItem('carts', JSON.stringify(this.listCarts))
     }
 
