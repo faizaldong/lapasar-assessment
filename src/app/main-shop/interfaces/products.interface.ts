@@ -24,6 +24,7 @@ export interface IProducts {
     tier: number[]
     version: string
     _id: string
+    isAddCart?: boolean
 }
 
 interface IPriceByRegion {

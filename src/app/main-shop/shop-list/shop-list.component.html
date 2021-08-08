@@ -6,7 +6,9 @@
 </div>
 
 <div class="toggle">
+    <input (keyup)="searchProductName($event)" placeholder="Full Product Name">
     <button (click)="toggleList()">Change View List</button>
+    <button (click)="sortProduct()">sort</button>
 </div>
 
 <div class="main-shop" [ngClass]="{'grid-view' : isGrid}">
@@ -18,10 +20,10 @@
             <span>{{product.name}}</span>
         </div>
         <div class="shop-item__price">
-            <span>{{convertCentToRM(product.price)}}</span>
+            <span>RM {{convertCentToRM(product.price)}}</span>
         </div>
         <div class="shop-item__cart">
-            <button (click)="addToCart(product)">Add to Cart</button>
+            <button (click)="addToCart(product, i)" [attr.disabled]="product.isAddCart? true : null">Add to Cart</button>
         </div>
     </div>
 </div>

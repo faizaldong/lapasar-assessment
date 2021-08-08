@@ -1,9 +1,15 @@
 .toggle {
     margin: 10px;
-    button {
+    button, input {
         padding: 6px 10px;
         border-radius: 5px;
         border: 1px solid gray;
+    }
+    button {
+        cursor: pointer;
+    }
+    input {
+        margin-right: 5px;
     }
 }
 
