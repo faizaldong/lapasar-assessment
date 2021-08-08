@@ -25,6 +25,7 @@ export interface IProducts {
     version: string
     _id: string
     isAddCart?: boolean
+    cartTotal: number
 }
 
 interface IPriceByRegion {
