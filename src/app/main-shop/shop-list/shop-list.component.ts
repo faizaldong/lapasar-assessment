@@ -47,7 +47,8 @@ export class ShopListComponent implements OnInit, OnDestroy {
                 const listProducts = data.map(product => {
                     return {
                         ...product,
-                        cartTotal: 0
+                        cartTotal: 0,
+                        totalAmount: 0
                     }
                 })
                 const [a, b, c, d, e, f, ...rest] = listProducts
@@ -73,11 +74,6 @@ export class ShopListComponent implements OnInit, OnDestroy {
         ).subscribe()
     }
 
-    convertCentToRM(price: number) {
-        return (price / 100).toFixed(2)
-        // return (price * 0.004163).toFixed(2);
-    }
-
     searchProductName(search: any) {
         const name =search.target.value
         const prodList = this.listTempProducts
@@ -95,6 +91,15 @@ export class ShopListComponent implements OnInit, OnDestroy {
         this.listProducts = this.isnotAsc ? orderBy(prodList, ['name'], ['desc']) : orderBy(prodList, ['name'], ['asc'])
     }
 
+    convertCentToRM(price: number) {
+        return (price / 100).toFixed(2)
+        // return (price * 0.004163).toFixed(2);
+    }
+
+    productPrice(item: IProducts) {
+        return (item.cartTotal * +this.convertCentToRM(item.price)).toFixed(2)
+    }
+
     addToCart(product: IProducts, index: number) {
         if (this.productCart.length) {
             const storedIds = this.productCart.map(product => product._id)
@@ -102,15 +107,18 @@ export class ShopListComponent implements OnInit, OnDestroy {
                 this.productCart.map((productC: IProducts) => {
                     if (productC._id === product._id) {
                         productC.cartTotal += 1
+                        productC.totalAmount = +this.productPrice(productC)
                     }
                 })
             } else {
                 product.cartTotal = 1
+                product.totalAmount = +this.productPrice(product)
                 this.productCart.push(product)
             }
 
         } else {
             product.cartTotal = 1
+            product.totalAmount = +this.productPrice(product)
             this.productCart.push(product)
         }
 
@@ -119,6 +127,13 @@ export class ShopListComponent implements OnInit, OnDestroy {
 
     removeStorage() {
         localStorage.removeItem('carts')
+        this.productCart = []
+    }
+
+    viewCart() {
+        if (this.productCart.length > 0 ) {
+            this.router.navigate(['/cart'])
+        }
     }
 
     get getTotalCarts(): any[] {
@@ -128,12 +143,6 @@ export class ShopListComponent implements OnInit, OnDestroy {
             return this.productCart
         } else {
             return []
-        }
-    }
-
-    viewCart() {
-        if (this.productCart.length > 0 ) {
-            this.router.navigate(['/cart'])
         }
     }
 

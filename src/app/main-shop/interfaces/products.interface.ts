@@ -25,6 +25,7 @@ export interface IProducts {
     version: string
     _id: string
     isAddCart?: boolean
+    totalAmount: number
     cartTotal: number
 }
 
