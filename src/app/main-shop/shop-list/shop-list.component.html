@@ -1,0 +1,30 @@
+<div class="cart-wrapper">
+    <span>
+        <img src="https://static.vecteezy.com/system/resources/previews/001/504/962/non_2x/shopping-cart-icon-free-vector.jpg" width="35" alt="cart" (click)="viewCart()">
+        <span>{{getTotalCarts.length}}</span>
+    </span>
+</div>
+
+<div class="toggle">
+    <input (keyup)="searchProductName($event)" placeholder="Full Product Name">
+    <button (click)="toggleList()">Change View List</button>
+    <button (click)="sortProduct()">sort</button>
+    <button (click)="removeStorage()">clear local</button>
+</div>
+
+<div class="main-shop" [ngClass]="{'grid-view' : isGrid}">
+    <div class="shop-item" *ngFor="let product of listProducts; let i=index;">
+        <div class="shop-item__image">
+            <img src="../../../assets/logo/u11.jpg" alt="product-image">
+        </div>
+        <div class="shop-item__name">
+            <span>{{product.name}}</span>
+        </div>
+        <div class="shop-item__price">
+            <span>RM {{convertCentToRM(product.price)}}</span>
+        </div>
+        <div class="shop-item__cart">
+            <button (click)="addToCart(product, i)" [attr.disabled]="product.isAddCart? true : null">Add to Cart</button>
+        </div>
+    </div>
+</div>

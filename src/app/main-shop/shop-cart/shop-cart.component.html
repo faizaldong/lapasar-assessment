@@ -1,0 +1,19 @@
+<div class="carts-wrapper">
+    <div class="cart-item" *ngFor="let item of listCarts; let i=index;">
+        <div class="item cart-item__image">
+            <img src="../../../assets/logo/u11.jpg" alt="product-image">
+        </div>
+        <div class="item cart-item__detail">
+            <div class="cart-item__detail-text"> <span>Name:</span> {{item.name}} </div>
+            <div class="cart-item__detail-text"> <span>Price:</span> RM {{productPrice(item)}} </div>
+            <div class="cart-item__detail-text">
+                <span class="cart-item__button" (click)="setItemTotal(item, 'dec')">-</span>
+                <span class="cart-item__tot"> {{item.cartTotal}} </span>
+                <span class="cart-item__button" (click)="setItemTotal(item, 'inc')">+</span>
+                <span class="cart-item__buttonremove" (click)="removeItem(item, i)">
+                    <img src="https://icons-for-free.com/iconfiles/png/512/bin+dustbin+garbage+recycling+rubbish+waste+icon-1320162741538179807.png" width="15" alt="dustbin">
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

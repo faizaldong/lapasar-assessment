@@ -1,0 +1,61 @@
+.toggle {
+    margin: 10px;
+    button, input {
+        padding: 6px 10px;
+        border-radius: 5px;
+        border: 1px solid gray;
+    }
+    button {
+        cursor: pointer;
+    }
+    input {
+        margin-right: 5px;
+    }
+}
+
+.cart-wrapper {
+    span {
+        float: right;
+        margin-right: 15px;
+    }
+    img {
+        cursor: pointer;
+    }
+}
+
+.main-shop {
+    .shop-item {
+        text-align: center;
+        width: 300px;
+        height: 300px;
+        margin: 10px;
+        border: 1px solid rgb(190, 190, 190);
+        border-radius: 0.3em;
+        background-color: lightgray;
+        flex: 1 0 21%;
+
+        &__image {
+            width: 180px;
+            margin: 10px auto;
+        }
+        &__image img {
+            width: 100%;
+            border-radius: 50%;
+        }
+        &__name {
+            margin: 10px 0;
+        }
+        &__price {
+            margin: 10px 0;
+        }
+        &__cart button {
+            cursor: pointer;
+        }
+    }
+}
+
+.main-shop.grid-view {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
