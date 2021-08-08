@@ -30,11 +30,11 @@ export class ShopCartComponent implements OnInit {
     }
     
     convertCentToRM(price: number) {
-        return (price * 0.004163).toFixed(2);
+        return price / 100
     }
 
     productPrice(item: IProducts) {
-        return item.cartTotal * +this.convertCentToRM(item.price)
+        return (item.cartTotal * +this.convertCentToRM(item.price)).toFixed(2)
     }
 
     setItemTotal(item: IProducts, event: string) {
