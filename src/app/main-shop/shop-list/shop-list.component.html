@@ -1,4 +1,8 @@
-<div class="main-shop">
+<div class="toggle">
+    <button (click)="toggleList()">Change View List</button>
+</div>
+
+<div class="main-shop" [ngClass]="{'grid-view' : isGrid}">
     <div class="shop-item"></div>
     <div class="shop-item"></div>
     <div class="shop-item"></div>

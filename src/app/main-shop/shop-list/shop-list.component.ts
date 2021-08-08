@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core'
 })
 
 export class ShopListComponent implements OnInit {
+    isGrid = false
 
     ngOnInit() {
         console.log('ONINIT LIST')
+    }
+
+    toggleList() {
+        this.isGrid = !this.isGrid
     }
 
 }

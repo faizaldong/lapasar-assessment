@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common'
 import { ShopCartComponent, ShopListComponent, MainShopRoutingModule} from '@src/app/main-shop'
 
 
@@ -8,7 +9,8 @@ import { ShopCartComponent, ShopListComponent, MainShopRoutingModule} from '@src
     ShopListComponent
   ],
   imports: [
-    MainShopRoutingModule
+    MainShopRoutingModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: []
