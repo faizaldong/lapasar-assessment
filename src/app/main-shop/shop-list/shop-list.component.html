@@ -15,7 +15,8 @@
 <div class="main-shop" [ngClass]="{'grid-view' : isGrid}">
     <div class="shop-item" *ngFor="let product of listProducts; let i=index;">
         <div class="shop-item__image">
-            <img src="https://secure.ap-tescoassets.com/assets/MY/769/9556126648769/ShotType1_540x540.jpg" alt="product-image">
+            <!-- <img src="https://secure.ap-tescoassets.com/assets/MY/769/9556126648769/ShotType1_540x540.jpg" alt="product-image"> -->
+            <img src="{{fileImage(product)}}" width="180" height="180" alt="product-image">
         </div>
         <div class="shop-item__name">
             <span>{{product.name}}</span>

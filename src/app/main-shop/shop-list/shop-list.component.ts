@@ -6,6 +6,7 @@ import { tap, takeUntil } from 'rxjs/operators'
 import { IProducts } from '../interfaces/products.interface'
 
 import {filter, orderBy} from 'lodash'
+import { environment } from '@src/environments/environment';
 
 @Component({
     selector: 'app-shop-list',
@@ -19,6 +20,7 @@ export class ShopListComponent implements OnInit, OnDestroy {
     listProducts: IProducts[] = []
     listTempProducts: IProducts[] = []
     productCart: IProducts[] = []
+    apiurl = `${environment.domain}${environment.products}`
 
     destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -52,14 +54,6 @@ export class ShopListComponent implements OnInit, OnDestroy {
                     }
                 })
                 const [a, b, c, d, e, f, ...rest] = listProducts
-                const files = [a, b, c, d, e, f].map((product: IProducts) => {return {'prodId': product._id, 'filename': product.images[0]}})
-
-                // unable to call image
-                // files.map((file: {prodId: string, filename: string}) => {
-                //     this._itemsService.getProducts(file.prodId, file.filename).subscribe(data => {
-                //         console.log('after get ',data)
-                //     })
-                // })
 
                 // get few data from array
                 this.listTempProducts = [a, b, c, d, e, f]
@@ -93,7 +87,6 @@ export class ShopListComponent implements OnInit, OnDestroy {
 
     convertCentToRM(price: number) {
         return (price / 100).toFixed(2)
-        // return (price * 0.004163).toFixed(2);
     }
 
     productPrice(item: IProducts) {
@@ -134,6 +127,10 @@ export class ShopListComponent implements OnInit, OnDestroy {
         if (this.productCart.length > 0 ) {
             this.router.navigate(['/cart'])
         }
+    }
+
+    fileImage(item: IProducts) {
+        return `${this.apiurl}/${item._id}/${item.images[0]}`
     }
 
     get getTotalCarts(): any[] {
