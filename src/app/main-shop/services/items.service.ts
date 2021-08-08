@@ -18,10 +18,10 @@ export class ItemsService {
     return new HttpHeaders().set('apikey', 'YXBpa2V5OmVwaS1hcGkxMjM')
   }
   
-  getProducts(prodID = '', imageFile = ''): Observable<IProducts> {
-    if (Boolean(prodID) && Boolean(imageFile))
-      this.apiUrl = `${this.apiUrl}/${prodID}/${imageFile}`
+  getProducts(productId = '', filename = ''): Observable<IProducts[]> {
+    if (Boolean(productId) && Boolean(filename))
+      this.apiUrl = `${this.apiUrl}/${productId}/${filename}`
     
-    return this._http.get<IProducts>(`${this.apiUrl}`, { 'headers': this.headers })
+    return this._http.get<IProducts[]>(`${this.apiUrl}`, { 'headers': this.headers })
   }
 }
