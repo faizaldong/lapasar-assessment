@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common'
+import { HttpClientModule }    from '@angular/common/http';
 import { ShopCartComponent, ShopListComponent, MainShopRoutingModule} from '@src/app/main-shop'
 
 
@@ -10,7 +11,8 @@ import { ShopCartComponent, ShopListComponent, MainShopRoutingModule} from '@src
   ],
   imports: [
     MainShopRoutingModule,
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: []
