@@ -27,8 +27,4 @@ export class ItemsService {
     
     return this._http.get<IProducts[]>(`${this.apiUrl}`, { 'headers': this.headers })
   }
-  
-  getimages() {
-    return this._http.get('http://149.28.132.97:7000/api/products/60c92e55e31bc648306a8483/001-1.jpg', { 'headers': this.headers })
-  }
 }
